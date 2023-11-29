@@ -10,7 +10,7 @@ const ProvinciasSelect = ({
 }) => {
   return (
     <div className="flex flex-col">
-      <label className="text-sm font-medium">Cantones</label>
+      <label className="text-sm font-medium">Provincias</label>
       <select
         onChange={(e) => onChangeFn(e.target.value as keyof typeof PROVINCIAS)}
         className="p-2 bg-transparent rounded text-sm border border-zinc-200/70 shadow-sm"
@@ -55,15 +55,22 @@ const CantonesSelect = ({
 
 const DistritosSelect = ({
   distritos,
+  onChangeFn,
 }: {
   distritos: Record<string, string>;
+  onChangeFn: (distrito: string) => void;
 }) => {
   return (
     <div className="flex flex-col">
-      <label className="text-sm font-medium">Cantones</label>
-      <select className="p-2 bg-transparent rounded border text-sm border-zinc-200/70 shadow-sm">
+      <label className="text-sm font-medium">Distritos</label>
+      <select
+        onChange={(e) => onChangeFn(e.target.value)}
+        className="p-2 bg-transparent rounded border text-sm border-zinc-200/70 shadow-sm"
+      >
         {Object.keys(distritos).map((key) => (
-          <option>{distritos[key as keyof typeof distritos]}</option>
+          <option value={key}>
+            {distritos[key as keyof typeof distritos]}
+          </option>
         ))}
       </select>
     </div>
@@ -71,13 +78,20 @@ const DistritosSelect = ({
 };
 
 function App() {
-  const [selectedProvince, setSelectedProvince] =
+  //change handlers
+  const [selectedProvince, setSelectedProvincia] =
     useState<keyof typeof PROVINCIAS>("1");
   const [selectedCanton, setSelectedCanton] = useState("01");
+  const [selectedDistrito, setSelectedDistrito] = useState("01");
 
-  if (!selectedProvince) return;
-  if (!selectedCanton) return;
+  //location object - contains the current selected location
+  const [location, setLocation] = useState({
+    provincia: "",
+    canton: "",
+    distrito: "",
+  });
 
+  //object containing dropdown options
   const [cantones, setCantones] = useState<
     Record<string, { nombre: string; distritos: Record<string, string> }>
   >(PROVINCIAS["1"].cantones);
@@ -86,21 +100,38 @@ function App() {
     PROVINCIAS[selectedProvince].cantones["01"].distritos
   );
 
+  //updates handlers
   useEffect(() => {
     setCantones(PROVINCIAS[selectedProvince].cantones);
+    setSelectedCanton("01");
   }, [selectedProvince]);
-  //
+
   useEffect(() => {
     setDistritos(cantones[selectedCanton as keyof typeof cantones].distritos);
   }, [selectedCanton]);
 
+  useEffect(() => {
+    setLocation({
+      provincia: PROVINCIAS[selectedProvince].nombre,
+      canton: cantones[selectedCanton].nombre,
+      distrito: distritos[selectedDistrito],
+    });
+  }, [selectedProvince, selectedCanton, selectedDistrito]);
+
   return (
     <>
-      <div className="w-1/3 mx-auto py-10">
-        <ProvinciasSelect onChangeFn={setSelectedProvince} />
+      <div className="w-1/3 mx-auto py-10 translate-y-1/2 space-y-5">
+        <ProvinciasSelect onChangeFn={setSelectedProvincia} />
         <CantonesSelect onChangeFn={setSelectedCanton} cantones={cantones} />
-        <DistritosSelect distritos={distritos} />
+        <DistritosSelect
+          onChangeFn={setSelectedDistrito}
+          distritos={distritos}
+        />
       </div>
+      {/* log  */}
+      <p>
+        {location.provincia} / {location.canton} / {location.distrito}
+      </p>
     </>
   );
 }
