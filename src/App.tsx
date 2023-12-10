@@ -1,18 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PROVINCIAS } from "./data";
 
 const ProvinciasSelect = ({
   onChangeFn,
 }: {
-  onChangeFn: React.Dispatch<
-    React.SetStateAction<"1" | "2" | "3" | "4" | "5" | "6" | "7">
-  >;
+  onChangeFn: (selectedProvince: string) => void;
 }) => {
   return (
     <div className="flex flex-col">
       <label className="text-sm font-medium">Provincias</label>
       <select
-        onChange={(e) => onChangeFn(e.target.value as keyof typeof PROVINCIAS)}
+        onChange={(e) => onChangeFn(e.target.value)}
         className="p-2 bg-transparent rounded text-sm border border-zinc-200/70 shadow-sm"
       >
         {Object.keys(PROVINCIAS).map((key) => (
@@ -28,6 +26,7 @@ const ProvinciasSelect = ({
 const CantonesSelect = ({
   cantones,
   onChangeFn,
+  selected,
 }: {
   cantones: Record<
     string,
@@ -35,6 +34,7 @@ const CantonesSelect = ({
   >;
 
   onChangeFn: (cantonSelected: string) => void;
+  selected: string;
 }) => {
   return (
     <div className="flex flex-col">
@@ -42,10 +42,11 @@ const CantonesSelect = ({
       <select
         onChange={(e) => onChangeFn(e.target.value)}
         className="p-2 bg-transparent rounded border text-sm border-zinc-200/70 shadow-sm"
+        value={selected}
       >
         {Object.keys(cantones).map((cantonKey) => (
           <option value={cantonKey} key={cantonKey}>
-            {cantones[cantonKey as keyof typeof cantones].nombre}{" "}
+            {cantonKey} {cantones[cantonKey as keyof typeof cantones].nombre}{" "}
           </option>
         ))}
       </select>
@@ -56,9 +57,11 @@ const CantonesSelect = ({
 const DistritosSelect = ({
   distritos,
   onChangeFn,
+  selected,
 }: {
   distritos: Record<string, string>;
   onChangeFn: (distrito: string) => void;
+  selected: string;
 }) => {
   return (
     <div className="flex flex-col">
@@ -66,10 +69,11 @@ const DistritosSelect = ({
       <select
         onChange={(e) => onChangeFn(e.target.value)}
         className="p-2 bg-transparent rounded border text-sm border-zinc-200/70 shadow-sm"
+        value={selected}
       >
         {Object.keys(distritos).map((key) => (
           <option value={key}>
-            {distritos[key as keyof typeof distritos]}
+            {key} {distritos[key as keyof typeof distritos]}
           </option>
         ))}
       </select>
@@ -84,13 +88,6 @@ function App() {
   const [selectedCanton, setSelectedCanton] = useState("01");
   const [selectedDistrito, setSelectedDistrito] = useState("01");
 
-  //location object - contains the current selected location
-  const [location, setLocation] = useState({
-    provincia: "",
-    canton: "",
-    distrito: "",
-  });
-
   //object containing dropdown options
   const [cantones, setCantones] = useState<
     Record<string, { nombre: string; distritos: Record<string, string> }>
@@ -100,37 +97,59 @@ function App() {
     PROVINCIAS[selectedProvince].cantones["01"].distritos
   );
 
-  //updates handlers
-  useEffect(() => {
-    setCantones(PROVINCIAS[selectedProvince].cantones);
+  //location object - contains the current selected location
+  const [location, setLocation] = useState({
+    provincia: PROVINCIAS[selectedProvince].nombre,
+    canton: cantones[selectedCanton].nombre,
+    distrito: distritos[selectedDistrito],
+  });
+
+  function handleProvince(selected: string) {
+    //update cantones and distritos
+    setCantones(PROVINCIAS[selected as keyof typeof PROVINCIAS].cantones);
+    setDistritos(
+      PROVINCIAS[selected as keyof typeof PROVINCIAS].cantones["01"].distritos
+    );
+
+    //update selected
     setSelectedCanton("01");
-  }, [selectedProvince]);
+    setSelectedDistrito("01");
+  }
 
-  useEffect(() => {
-    setDistritos(cantones[selectedCanton as keyof typeof cantones].distritos);
-  }, [selectedCanton]);
+  function handleCanton(selected: string) {
+    setDistritos(cantones[selected].distritos);
 
-  useEffect(() => {
-    setLocation({
-      provincia: PROVINCIAS[selectedProvince].nombre,
-      canton: cantones[selectedCanton].nombre,
-      distrito: distritos[selectedDistrito],
-    });
-  }, [selectedProvince, selectedCanton, selectedDistrito]);
+    //update selected
+    setSelectedCanton(selected);
+    setSelectedDistrito("01");
+
+    //update results
+  }
+
+  function handleDistrito(selected: string) {
+    setSelectedDistrito(selected);
+
+    //update results
+  }
 
   return (
     <>
       <div className="w-1/3 mx-auto py-10 translate-y-1/2 space-y-5">
-        <ProvinciasSelect onChangeFn={setSelectedProvincia} />
-        <CantonesSelect onChangeFn={setSelectedCanton} cantones={cantones} />
+        <ProvinciasSelect onChangeFn={handleProvince} />
+        <CantonesSelect
+          onChangeFn={handleCanton}
+          cantones={cantones}
+          selected={selectedCanton}
+        />
         <DistritosSelect
-          onChangeFn={setSelectedDistrito}
+          selected={selectedDistrito}
+          onChangeFn={handleDistrito}
           distritos={distritos}
         />
       </div>
-      {/* log  */}
       <p>
         {location.provincia} / {location.canton} / {location.distrito}
+        {/* {distritos["01"]} */}
       </p>
     </>
   );
