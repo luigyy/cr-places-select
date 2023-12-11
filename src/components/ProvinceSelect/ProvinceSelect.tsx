@@ -1,5 +1,5 @@
 import { PROVINCIAS } from "../../data";
-import { ContextProvider, useStateContext } from "../context/ContextProvider";
+import { useStateContext } from "../context/ContextProvider";
 
 const ProvinciasSelect = () => {
   const methods = useStateContext();

@@ -1,8 +1,13 @@
 {
-  "name": "cr-places-select-components",
-  "private": true,
+  "name": "@luigyy/cr-places-select",
+  "private": false,
   "version": "0.0.0",
   "type": "module",
+  "main": "dist/index.umd.cjs",
+  "publishConfig": {
+    "@luigyy:registry": "https://npm.pkg.github.com"
+  },
+ "license": "MIT", 
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -14,6 +19,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/node": "^20.10.4",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@typescript-eslint/eslint-plugin": "^6.10.0",

@@ -19,8 +19,7 @@ const StateContext = createContext<{
 } | null>(null);
 
 export const ContextProvider = ({ children }: { children: ReactNode }) => {
-  const [selectedProvince, setSelectedProvincia] =
-    useState<keyof typeof PROVINCIAS>("1");
+  const [selectedProvince, _] = useState<keyof typeof PROVINCIAS>("1");
   const [selectedCanton, setSelectedCanton] = useState("01");
   const [selectedDistrito, setSelectedDistrito] = useState("01");
 

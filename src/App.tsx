@@ -2,7 +2,6 @@ import {
   DistrictSelect,
   MunicipalitySelect,
   ProvinceSelect,
-  ContextProvider,
   Location,
 } from "./index";
 
