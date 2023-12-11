@@ -1,5 +1,5 @@
 import { type ReactNode, createContext, useContext, useState } from "react";
-import { PROVINCIAS } from "../data";
+import { PROVINCIAS } from "../../data";
 
 const StateContext = createContext<{
   handleProvince: (selected: string) => void;

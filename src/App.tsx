@@ -1,21 +1,22 @@
-import { ReactNode } from "react";
 import {
   DistrictSelect,
   MunicipalitySelect,
   ProvinceSelect,
-} from "./componets";
-import { ContextProvider } from "./context/ContextProvider";
+  ContextProvider,
+  Location,
+} from "./index";
 
 function App() {
+  const { provincia, canton, distrito } = Location();
   return (
     <>
-      <ContextProvider>
-        <ProvinceSelect />
-
-        <MunicipalitySelect />
-      </ContextProvider>
-      {/*  */}
+      <ProvinceSelect />
+      <MunicipalitySelect />
       <DistrictSelect />
+
+      <p className="border-2 h-10 border-red-500 w-96">
+        {provincia} {canton} {distrito}
+      </p>
     </>
   );
 }

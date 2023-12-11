@@ -1,7 +1,4 @@
-import {
-  ContextProvider,
-  useStateContext,
-} from "../../context/ContextProvider";
+import { ContextProvider, useStateContext } from "../context/ContextProvider";
 
 const DistrictSelect = () => {
   const methods = useStateContext();
