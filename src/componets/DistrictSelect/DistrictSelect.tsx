@@ -1,7 +1,13 @@
-import useHandlers from "../useHandler";
+import {
+  ContextProvider,
+  useStateContext,
+} from "../../context/ContextProvider";
 
 const DistrictSelect = () => {
-  const { handleDistrito, distritos, selectedDistrito } = useHandlers();
+  const methods = useStateContext();
+  if (!methods) return <div>no context</div>;
+  const { selectedDistrito, distritos, handleDistrito } = methods;
+  console.log(methods);
   return (
     <div className="flex flex-col">
       <label className="text-sm font-medium">Distritos</label>
@@ -11,7 +17,7 @@ const DistrictSelect = () => {
         value={selectedDistrito}
       >
         {Object.keys(distritos).map((key) => (
-          <option value={key}>
+          <option key={key} value={key}>
             {key} {distritos[key as keyof typeof distritos]}
           </option>
         ))}

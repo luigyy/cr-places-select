@@ -1,14 +1,20 @@
+import { ReactNode } from "react";
 import {
   DistrictSelect,
   MunicipalitySelect,
   ProvinceSelect,
 } from "./componets";
+import { ContextProvider } from "./context/ContextProvider";
 
 function App() {
   return (
     <>
-      <ProvinceSelect />
-      <MunicipalitySelect />
+      <ContextProvider>
+        <ProvinceSelect />
+
+        <MunicipalitySelect />
+      </ContextProvider>
+      {/*  */}
       <DistrictSelect />
     </>
   );

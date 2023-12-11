@@ -1,7 +1,24 @@
-import { useState } from "react";
+import { type ReactNode, createContext, useContext, useState } from "react";
 import { PROVINCIAS } from "../data";
 
-export default function useHandlers() {
+const StateContext = createContext<{
+  handleProvince: (selected: string) => void;
+  handleCanton: (selected: string) => void;
+  handleDistrito: (selected: string) => void;
+  //
+  selectedCanton: string;
+  selectedDistrito: string;
+  //
+  cantones: Record<
+    string,
+    { nombre: string; distritos: Record<string, string> }
+  >;
+  distritos: Record<string, string>;
+  //
+  location: { provincia: string; canton: string; distrito: string };
+} | null>(null);
+
+export const ContextProvider = ({ children }: { children: ReactNode }) => {
   const [selectedProvince, setSelectedProvincia] =
     useState<keyof typeof PROVINCIAS>("1");
   const [selectedCanton, setSelectedCanton] = useState("01");
@@ -68,13 +85,22 @@ export default function useHandlers() {
       distrito: distritos[selected],
     });
   }
-  return {
-    handleProvince,
-    handleCanton,
-    handleDistrito,
-    cantones,
-    distritos,
-    selectedCanton,
-    selectedDistrito,
-  };
-}
+  return (
+    <StateContext.Provider
+      value={{
+        handleProvince,
+        handleCanton,
+        handleDistrito,
+        cantones,
+        distritos,
+        selectedCanton,
+        selectedDistrito,
+        location,
+      }}
+    >
+      {children}
+    </StateContext.Provider>
+  );
+};
+
+export const useStateContext = () => useContext(StateContext);
