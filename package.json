@@ -1,13 +1,14 @@
 {
-  "name": "@luigyy/cr-places-select",
+  "name": "costarica-select-location",
   "private": false,
   "version": "0.0.0",
   "type": "module",
   "main": "dist/index.umd.cjs",
+  "types": "index.d.ts",
   "publishConfig": {
-    "@luigyy:registry": "https://npm.pkg.github.com"
+    "registry": "https://registry.npmjs.org/"
   },
- "license": "MIT", 
+  "license": "MIT",
   "scripts": {
     "test": "exit 0",
     "dev": "vite",
@@ -17,7 +18,8 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "vite-plugin-dts": "^3.6.4"
   },
   "devDependencies": {
     "@types/node": "^20.10.4",
