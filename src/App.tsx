@@ -88,7 +88,7 @@ function App() {
   const [selectedCanton, setSelectedCanton] = useState("01");
   const [selectedDistrito, setSelectedDistrito] = useState("01");
 
-  //object containing dropdown options
+  // dropdown options
   const [cantones, setCantones] = useState<
     Record<string, { nombre: string; distritos: Record<string, string> }>
   >(PROVINCIAS["1"].cantones);
@@ -114,6 +114,15 @@ function App() {
     //update selected
     setSelectedCanton("01");
     setSelectedDistrito("01");
+
+    setLocation({
+      provincia: PROVINCIAS[selected as keyof typeof PROVINCIAS].nombre,
+      canton:
+        PROVINCIAS[selected as keyof typeof PROVINCIAS].cantones["01"].nombre,
+      distrito:
+        PROVINCIAS[selected as keyof typeof PROVINCIAS].cantones["01"]
+          .distritos["01"],
+    });
   }
 
   function handleCanton(selected: string) {
@@ -124,35 +133,23 @@ function App() {
     setSelectedDistrito("01");
 
     //update results
+    setLocation({
+      ...location,
+      canton: cantones[selected as keyof typeof cantones].nombre,
+      distrito: cantones[selected].distritos["01"],
+    });
   }
 
   function handleDistrito(selected: string) {
     setSelectedDistrito(selected);
 
     //update results
+    setLocation({
+      ...location,
+      distrito: distritos[selected],
+    });
   }
 
-  return (
-    <>
-      <div className="w-1/3 mx-auto py-10 translate-y-1/2 space-y-5">
-        <ProvinciasSelect onChangeFn={handleProvince} />
-        <CantonesSelect
-          onChangeFn={handleCanton}
-          cantones={cantones}
-          selected={selectedCanton}
-        />
-        <DistritosSelect
-          selected={selectedDistrito}
-          onChangeFn={handleDistrito}
-          distritos={distritos}
-        />
-      </div>
-      <p>
-        {location.provincia} / {location.canton} / {location.distrito}
-        {/* {distritos["01"]} */}
-      </p>
-    </>
-  );
+  return <>hi test</>;
 }
-
 export default App;
