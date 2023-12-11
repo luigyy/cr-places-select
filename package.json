@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "type": "module",
   "main": "dist/index.umd.cjs",
-  "types": "index.d.ts",
+  "types": "dist/index.d.ts",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
