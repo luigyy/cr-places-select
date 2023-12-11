@@ -1,23 +1,14 @@
-const MunicipalitySelect = ({
-  cantones,
-  onChangeFn,
-  selected,
-}: {
-  cantones: Record<
-    string,
-    { nombre: string; distritos: Record<string, string> }
-  >;
+import useHandlers from "../useHandler";
 
-  onChangeFn: (cantonSelected: string) => void;
-  selected: string;
-}) => {
+const MunicipalitySelect = () => {
+  const { handleCanton, selectedCanton, cantones } = useHandlers();
   return (
     <div className="flex flex-col">
       <label className="text-sm font-medium">Cantones</label>
       <select
-        onChange={(e) => onChangeFn(e.target.value)}
+        onChange={(e) => handleCanton(e.target.value)}
         className="p-2 bg-transparent rounded border text-sm border-zinc-200/70 shadow-sm"
-        value={selected}
+        value={selectedCanton}
       >
         {Object.keys(cantones).map((cantonKey) => (
           <option value={cantonKey} key={cantonKey}>
