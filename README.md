@@ -1,30 +1,97 @@
-# React + TypeScript + Vite
+# react-select-costarica-location
+react-select-costarica-location is a collection of 3 select components to be able to select places in Costa Rica. 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![ezgif com-gif-maker](https://github.com/luigyy/cr-places-select/assets/108197820/3d32e9ed-7984-4317-b720-383d9455f7ed)
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+use npm to install the package
 
-- Configure the top-level `parserOptions` property like this:
+```bash
+npm i react-select-costarica-location
+```
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
+## Usage
+
+In your form component, import the select components as well as the location state: 
+
+
+```tsx
+import {
+  DistrictSelect,
+  MunicipalitySelect,
+  ProvinceSelect,
+  Location,
+} from 'react-select-costarica-location'
+
+// example with tailwindcss
+const ContainerClassName = "flex flex-col w-96";
+const LabelClassName = "text-sm font-medium";
+const SelectInputClassName =
+  "p-2 bg-transparent rounded text-sm border border-zinc-200/70 shadow-sm";
+
+function LocationForm() {
+  const { provincia, canton, distrito } = Location();
+
+  //do something with it
+  console.log(provincia, canton, distrito);
+
+  return (
+    <div>
+      <ProvinceSelect
+        ContainerClassName={ContainerClassName}
+        LabelClassName={LabelClassName}
+        SelectInputClassName={SelectInputClassName}
+      />
+      <MunicipalitySelect
+        ContainerClassName={ContainerClassName}
+        LabelClassName={LabelClassName}
+        SelectInputClassName={SelectInputClassName}
+      />
+      <DistrictSelect
+        ContainerClassName={ContainerClassName}
+        LabelClassName={LabelClassName}
+        SelectInputClassName={SelectInputClassName}
+      />
+    </div>
+  );
 }
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+
+
+
+
+ :warning: Do not forget to wrap your form with the Context provider 
+
+ ```tsx
+  import {
+  ContextProvider as LocationContextProvider,
+}  from 'react-select-costarica-location'
+
+function App() {
+  return (
+    <LocationContextProvider>
+      <LocationForm />
+    </LocationContextProvider>
+  );
+}
+export default App;
+ ```
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first
+to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
+
+
