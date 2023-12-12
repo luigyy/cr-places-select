@@ -1,21 +1,22 @@
 import { useStateContext } from "../context/ContextProvider";
+import SelectComponentProps from "../../types";
 
-const DistrictSelect = () => {
+const DistrictSelect = (props: SelectComponentProps) => {
   const methods = useStateContext();
   if (!methods) return <div>no context</div>;
   const { selectedDistrito, distritos, handleDistrito } = methods;
   console.log(methods);
   return (
-    <div className="flex flex-col">
-      <label className="text-sm font-medium">Distritos</label>
+    <div className={props.ContainerClassName}>
+      <label className={props.LabelClassName}>Distritos</label>
       <select
         onChange={(e) => handleDistrito(e.target.value)}
-        className="p-2 bg-transparent rounded border text-sm border-zinc-200/70 shadow-sm"
+        className={props.SelectInputClassName}
         value={selectedDistrito}
       >
         {Object.keys(distritos).map((key) => (
           <option key={key} value={key}>
-            {key} {distritos[key as keyof typeof distritos]}
+            {distritos[key as keyof typeof distritos]}
           </option>
         ))}
       </select>
