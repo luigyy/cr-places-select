@@ -1,6 +1,6 @@
 import { PROVINCIAS } from "../../data";
 import { useStateContext } from "../context/ContextProvider";
-import SelectComponentProps from "../../types";
+import SelectComponentProps from "..";
 
 const ProvinciasSelect = (props: SelectComponentProps) => {
   const methods = useStateContext();

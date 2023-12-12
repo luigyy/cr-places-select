@@ -1,5 +1,5 @@
 import { useStateContext } from "../context/ContextProvider";
-import SelectComponentProps from "../../types";
+import SelectComponentProps from "..";
 
 const MunicipalitySelect = (props: SelectComponentProps) => {
   const methods = useStateContext();
