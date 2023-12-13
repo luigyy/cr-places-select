@@ -7,7 +7,9 @@ const MunicipalitySelect = (props: SelectComponentProps) => {
   const { cantones, handleCanton, selectedCanton } = methods;
   return (
     <div className={props.ContainerClassName}>
-      <label className={props.LabelClassName}>Cantones</label>
+      <label className={props.LabelClassName}>
+        {props.LabelContent ?? "Cantones"}
+      </label>
       <select
         onChange={(e) => handleCanton(e.target.value)}
         className={props.SelectInputClassName}

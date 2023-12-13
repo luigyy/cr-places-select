@@ -8,7 +8,9 @@ const DistrictSelect = (props: SelectComponentProps) => {
   console.log(methods);
   return (
     <div className={props.ContainerClassName}>
-      <label className={props.LabelClassName}>Distritos</label>
+      <label className={props.LabelClassName}>
+        {props.LabelContent ?? "Distritos"}
+      </label>
       <select
         onChange={(e) => handleDistrito(e.target.value)}
         className={props.SelectInputClassName}

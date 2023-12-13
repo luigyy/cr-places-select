@@ -9,7 +9,9 @@ const ProvinciasSelect = (props: SelectComponentProps) => {
   const { handleProvince } = methods;
   return (
     <div className={props.ContainerClassName}>
-      <label className={props.LabelClassName}>Provincias</label>
+      <label className={props.LabelClassName}>
+        {props.LabelContent ?? "Provincias"}
+      </label>
       <select
         onChange={(e) => handleProvince(e.target.value)}
         className={props.SelectInputClassName}
