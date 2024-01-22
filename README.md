@@ -81,6 +81,34 @@ function App() {
 }
 export default App;
  ```
+## Setting default values
+to reset the form to a certain state, use the useSetLocationValues function 
+
+```tsx
+const DEFAULT_PROVINCE = "Cartago";
+const DEFAULT_MUNICIPALITY = "Turrialba";
+const DEFAULT_DISTRICT = "Tuis";
+
+function Example() {
+  const methods = LocationMethods();
+  if (!methods) return <p>no context</p>;
+
+  const { useSetLocationValues } = methods;
+
+  useSetLocationValues({
+    province: DEFAULT_PROVINCE,
+    municipality: DEFAULT_MUNICIPALITY,
+    district: DEFAULT_DISTRICT,
+  });
+  return (
+    <>
+      <ProvinceSelect />
+      <MunicipalitySelect />
+      <DistrictSelect />
+    </>
+  );
+}
+```
 
 ## Contributing
 
