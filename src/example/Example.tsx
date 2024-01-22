@@ -8,7 +8,7 @@ import { ContextProvider } from "..";
 
 const DEFAULT_PROVINCE = "Cartago";
 const DEFAULT_MUNICIPALITY = "Turrialba";
-const DEFAULT_DISTRICT = "Turrialba";
+const DEFAULT_DISTRICT = "Tuis";
 
 function Example() {
   const methods = LocationMethods();
@@ -18,8 +18,8 @@ function Example() {
 
   useSetLocationValues({
     province: DEFAULT_PROVINCE,
-    municipality: "",
-    district: "",
+    municipality: DEFAULT_MUNICIPALITY,
+    district: DEFAULT_DISTRICT,
   });
   return (
     <>

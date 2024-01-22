@@ -7,11 +7,24 @@ export interface LocationType {
   district: string;
 }
 
+//for province and canton since those objects kinda have the same shape
+function getKeyByValue(
+  object: Record<string, { nombre: string; cantones?: any; distritos?: any }>,
+  value: string
+) {
+  return Object.keys(object).find((key) => object[key].nombre === value);
+}
+
+function getKeyByValueDistricts(object: Record<string, string>, value: string) {
+  return Object.keys(object).find((key) => object[key] === value);
+}
+
 const StateContext = createContext<{
   handleProvince: (selected: string) => void;
   handleCanton: (selected: string) => void;
   handleDistrito: (selected: string) => void;
   //
+  selectedProvince: string;
   selectedCanton: string;
   selectedDistrito: string;
   //
@@ -27,7 +40,8 @@ const StateContext = createContext<{
 } | null>(null);
 
 export const ContextProvider = ({ children }: { children: ReactNode }) => {
-  const [selectedProvince, _] = useState<keyof typeof PROVINCIAS>("1");
+  const [selectedProvince, setSelectedProvince] =
+    useState<keyof typeof PROVINCIAS>("1");
   const [selectedCanton, setSelectedCanton] = useState("01");
   const [selectedDistrito, setSelectedDistrito] = useState("01");
 
@@ -49,6 +63,7 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
 
   function handleProvince(selected: string) {
     //update cantones and distritos
+    setSelectedProvince(selected as keyof typeof PROVINCIAS);
     setCantones(PROVINCIAS[selected as keyof typeof PROVINCIAS].cantones);
     setDistritos(
       PROVINCIAS[selected as keyof typeof PROVINCIAS].cantones["01"].distritos
@@ -98,7 +113,20 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
     municipality,
     district,
   }: LocationType) {
-    console.log(province);
+    //handle province
+    const provinceKey = getKeyByValue(PROVINCIAS, province);
+    if (!provinceKey) return null;
+    handleProvince(provinceKey);
+
+    //handle municipality
+    const municipalityKey = getKeyByValue(cantones, municipality);
+    if (!municipalityKey) return;
+    handleCanton(municipalityKey);
+
+    //handle district
+    const districtKey = getKeyByValueDistricts(distritos, district);
+    if (!districtKey) return;
+    handleDistrito(districtKey);
   }
   return (
     <StateContext.Provider
@@ -108,6 +136,7 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
         handleDistrito,
         cantones,
         distritos,
+        selectedProvince,
         selectedCanton,
         selectedDistrito,
         location,

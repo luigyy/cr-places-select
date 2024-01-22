@@ -6,7 +6,7 @@ const ProvinciasSelect = (props: SelectComponentProps) => {
   const methods = useStateContext();
   if (!methods) return <div>no context</div>;
 
-  const { handleProvince } = methods;
+  const { handleProvince, selectedProvince } = methods;
   return (
     <div className={props.ContainerClassName}>
       <label className={props.LabelClassName}>
@@ -15,6 +15,7 @@ const ProvinciasSelect = (props: SelectComponentProps) => {
       <select
         onChange={(e) => handleProvince(e.target.value)}
         className={props.SelectInputClassName}
+        value={selectedProvince}
       >
         {Object.keys(PROVINCIAS).map((key) => (
           <option key={key} value={key}>
