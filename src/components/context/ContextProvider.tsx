@@ -1,6 +1,12 @@
 import { type ReactNode, createContext, useContext, useState } from "react";
 import { PROVINCIAS } from "../../data";
 
+export interface LocationType {
+  province: string;
+  municipality: string;
+  district: string;
+}
+
 const StateContext = createContext<{
   handleProvince: (selected: string) => void;
   handleCanton: (selected: string) => void;
@@ -16,6 +22,8 @@ const StateContext = createContext<{
   distritos: Record<string, string>;
   //
   location: { provincia: string; canton: string; distrito: string };
+  //
+  useSetLocationValues: ({ province }: LocationType) => void;
 } | null>(null);
 
 export const ContextProvider = ({ children }: { children: ReactNode }) => {
@@ -84,6 +92,14 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
       distrito: distritos[selected],
     });
   }
+
+  function useSetLocationValues({
+    province,
+    municipality,
+    district,
+  }: LocationType) {
+    console.log(province);
+  }
   return (
     <StateContext.Provider
       value={{
@@ -95,6 +111,7 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
         selectedCanton,
         selectedDistrito,
         location,
+        useSetLocationValues,
       }}
     >
       {children}
