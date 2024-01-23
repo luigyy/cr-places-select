@@ -5,7 +5,6 @@ const DistrictSelect = (props: SelectComponentProps) => {
   const methods = useStateContext();
   if (!methods) return <div>no context</div>;
   const { selectedDistrito, distritos, handleDistrito } = methods;
-  console.log(methods);
   return (
     <div className={props.ContainerClassName}>
       <label className={props.LabelClassName}>

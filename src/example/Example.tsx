@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   ProvinceSelect,
   MunicipalitySelect,
@@ -6,9 +7,9 @@ import {
 } from "..";
 import { ContextProvider } from "..";
 
-const DEFAULT_PROVINCE = "Cartago";
-const DEFAULT_MUNICIPALITY = "Turrialba";
-const DEFAULT_DISTRICT = "Tuis";
+const DEFAULT_PROVINCE = "Heredia";
+const DEFAULT_MUNICIPALITY = "Barva";
+const DEFAULT_DISTRICT = "Barva";
 
 function Example() {
   const methods = LocationMethods();
@@ -16,11 +17,14 @@ function Example() {
 
   const { useSetLocationValues } = methods;
 
-  useSetLocationValues({
-    province: DEFAULT_PROVINCE,
-    municipality: DEFAULT_MUNICIPALITY,
-    district: DEFAULT_DISTRICT,
-  });
+  useEffect(() => {
+    useSetLocationValues({
+      province: DEFAULT_PROVINCE,
+      municipality: DEFAULT_MUNICIPALITY,
+      district: DEFAULT_DISTRICT,
+    });
+  }, []);
+
   return (
     <>
       <ProvinceSelect />

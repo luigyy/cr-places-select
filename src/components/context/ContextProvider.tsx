@@ -62,8 +62,8 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
   });
 
   function handleProvince(selected: string) {
-    //update cantones and distritos
     setSelectedProvince(selected as keyof typeof PROVINCIAS);
+    //update cantones and distritos
     setCantones(PROVINCIAS[selected as keyof typeof PROVINCIAS].cantones);
     setDistritos(
       PROVINCIAS[selected as keyof typeof PROVINCIAS].cantones["01"].distritos
@@ -116,17 +116,29 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
     //handle province
     const provinceKey = getKeyByValue(PROVINCIAS, province);
     if (!provinceKey) return null;
-    handleProvince(provinceKey);
+    setSelectedProvince(provinceKey as keyof typeof PROVINCIAS);
+
+    //update municipalities
+    const currentMunicipalities =
+      PROVINCIAS[provinceKey as keyof typeof PROVINCIAS].cantones;
+    setCantones(currentMunicipalities);
 
     //handle municipality
-    const municipalityKey = getKeyByValue(cantones, municipality);
+    const municipalityKey = getKeyByValue(currentMunicipalities, municipality);
     if (!municipalityKey) return;
-    handleCanton(municipalityKey);
+    setSelectedCanton(municipalityKey);
+
+    //update districts
+    const currentDistricts =
+      currentMunicipalities[
+        municipalityKey as keyof typeof currentMunicipalities
+      ].distritos;
+    setDistritos(currentDistricts);
 
     //handle district
-    const districtKey = getKeyByValueDistricts(distritos, district);
+    const districtKey = getKeyByValueDistricts(currentDistricts, district);
     if (!districtKey) return;
-    handleDistrito(districtKey);
+    setSelectedDistrito(districtKey);
   }
   return (
     <StateContext.Provider
