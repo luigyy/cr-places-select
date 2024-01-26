@@ -1,7 +1,6 @@
 # react-select-costarica-location
-react-select-costarica-location is a collection of 3 select components to be able to select places in Costa Rica. 
 
-
+react-select-costarica-location is a collection of 3 select components to be able to select places in Costa Rica.
 
 ![ezgif com-gif-maker](https://github.com/luigyy/cr-places-select/assets/108197820/3d32e9ed-7984-4317-b720-383d9455f7ed)
 
@@ -15,8 +14,7 @@ npm i react-select-costarica-location
 
 ## Usage
 
-In your form component, import the select components as well as the location state: 
-
+In your form component, import the select components as well as the location state:
 
 ```tsx
 import {
@@ -24,7 +22,7 @@ import {
   MunicipalitySelect,
   ProvinceSelect,
   Location,
-} from 'react-select-costarica-location'
+} from "react-select-costarica-location";
 
 // example with tailwindcss
 const ContainerClassName = "flex flex-col w-96";
@@ -60,17 +58,10 @@ function LocationForm() {
 }
 ```
 
+:warning: Do not forget to wrap your form with the Context provider
 
-
-
-
-
- :warning: Do not forget to wrap your form with the Context provider 
-
- ```tsx
-  import {
-  ContextProvider as LocationContextProvider,
-}  from 'react-select-costarica-location'
+```tsx
+import { ContextProvider as LocationContextProvider } from "react-select-costarica-location";
 
 function App() {
   return (
@@ -80,11 +71,14 @@ function App() {
   );
 }
 export default App;
- ```
+```
+
 ## Setting default values
-to reset the form to a certain state, use the useSetLocationValues function 
+
+to reset the form to a certain state, use the useSetLocationValues function
 
 ```tsx
+//get your data
 const DEFAULT_PROVINCE = "Cartago";
 const DEFAULT_MUNICIPALITY = "Turrialba";
 const DEFAULT_DISTRICT = "Tuis";
@@ -95,11 +89,15 @@ function Example() {
 
   const { useSetLocationValues } = methods;
 
-  useSetLocationValues({
-    province: DEFAULT_PROVINCE,
-    municipality: DEFAULT_MUNICIPALITY,
-    district: DEFAULT_DISTRICT,
-  });
+  //reset form
+  useEffect(() => {
+    useSetLocationValues({
+      province: DEFAULT_PROVINCE,
+      municipality: DEFAULT_MUNICIPALITY,
+      district: DEFAULT_DISTRICT,
+    });
+  }, []);
+
   return (
     <>
       <ProvinceSelect />
@@ -120,6 +118,3 @@ Please make sure to update tests as appropriate.
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
-
-
-

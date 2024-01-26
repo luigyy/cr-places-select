@@ -4,12 +4,13 @@ import {
   MunicipalitySelect,
   DistrictSelect,
   LocationMethods,
+  Location,
 } from "..";
 import { ContextProvider } from "..";
 
 const DEFAULT_PROVINCE = "Cartago";
 const DEFAULT_MUNICIPALITY = "Turrialba";
-const DEFAULT_DISTRICT = "Tuis";
+const DEFAULT_DISTRICT = "Turrialba";
 
 interface LocationType {
   province: string;
@@ -49,6 +50,7 @@ function LocationForm({ location }: { location: LocationType }) {
 }
 
 function Example() {
+  const { provincia, canton, distrito } = Location();
   return (
     <>
       <LocationForm
@@ -58,6 +60,7 @@ function Example() {
           district: DEFAULT_DISTRICT,
         }}
       />
+      {provincia} {canton} {distrito}
     </>
   );
 }

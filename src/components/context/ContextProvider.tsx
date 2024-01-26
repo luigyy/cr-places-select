@@ -161,6 +161,16 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
       return null;
     }
     setSelectedDistrito(districtKey);
+
+    //update location
+    setLocation({
+      provincia: PROVINCIAS[provinceKey as keyof typeof PROVINCIAS].nombre,
+      canton:
+        currentMunicipalities[
+          municipalityKey as keyof typeof currentMunicipalities
+        ].nombre,
+      distrito: currentDistricts[districtKey as keyof typeof currentDistricts],
+    });
   }
   return (
     <StateContext.Provider
