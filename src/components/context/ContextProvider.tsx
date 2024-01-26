@@ -108,6 +108,16 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
     });
   }
 
+  function resetForm() {
+    setSelectedProvince("1");
+
+    setCantones(PROVINCIAS["1"].cantones);
+    setSelectedCanton("01");
+
+    setDistritos(PROVINCIAS["1"].cantones["01"].distritos);
+    setSelectedDistrito("01");
+  }
+
   function useSetLocationValues({
     province,
     municipality,
@@ -115,7 +125,11 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
   }: LocationType) {
     //handle province
     const provinceKey = getKeyByValue(PROVINCIAS, province);
-    if (!provinceKey) return null;
+    if (!provinceKey) {
+      resetForm();
+      console.log("Wrong default values for province");
+      return null;
+    }
     setSelectedProvince(provinceKey as keyof typeof PROVINCIAS);
 
     //update municipalities
@@ -125,7 +139,11 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
 
     //handle municipality
     const municipalityKey = getKeyByValue(currentMunicipalities, municipality);
-    if (!municipalityKey) return;
+    if (!municipalityKey) {
+      resetForm();
+      console.log("Wrong default values for municipality");
+      return null;
+    }
     setSelectedCanton(municipalityKey);
 
     //update districts
@@ -137,7 +155,11 @@ export const ContextProvider = ({ children }: { children: ReactNode }) => {
 
     //handle district
     const districtKey = getKeyByValueDistricts(currentDistricts, district);
-    if (!districtKey) return;
+    if (!districtKey) {
+      resetForm();
+      console.log("Wrong default values for district");
+      return null;
+    }
     setSelectedDistrito(districtKey);
   }
   return (

@@ -7,9 +7,9 @@ import {
 } from "..";
 import { ContextProvider } from "..";
 
-const DEFAULT_PROVINCE = "Heredia";
-const DEFAULT_MUNICIPALITY = "Barva";
-const DEFAULT_DISTRICT = "Barva";
+const DEFAULT_PROVINCE = "Cartago";
+const DEFAULT_MUNICIPALITY = "Turrialba";
+const DEFAULT_DISTRICT = "Turrialba";
 
 function Example() {
   const methods = LocationMethods();
