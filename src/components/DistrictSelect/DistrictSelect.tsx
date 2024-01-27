@@ -1,6 +1,10 @@
 import { useStateContext } from "../context/ContextProvider";
-import SelectComponentProps from "..";
-
+interface SelectComponentProps {
+  ContainerClassName?: string;
+  LabelClassName?: string;
+  SelectInputClassName?: string;
+  LabelContent?: string;
+}
 const DistrictSelect = (props: SelectComponentProps) => {
   const methods = useStateContext();
   if (!methods) return <div>no context</div>;
