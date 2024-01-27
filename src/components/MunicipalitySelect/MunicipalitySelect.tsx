@@ -1,11 +1,11 @@
 import { useStateContext } from "../context/ContextProvider";
-interface SelectComponentProps {
+
+const MunicipalitySelect = (props: {
   ContainerClassName?: string;
   LabelClassName?: string;
   SelectInputClassName?: string;
   LabelContent?: string;
-}
-const MunicipalitySelect = (props: SelectComponentProps) => {
+}) => {
   const methods = useStateContext();
   if (!methods) return <div>no context</div>;
   const { cantones, handleCanton, selectedCanton } = methods;

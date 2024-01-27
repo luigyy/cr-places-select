@@ -1,7 +1,7 @@
 {
   "name": "react-select-costarica-location",
   "private": false,
-  "version": "1.2.1",
+  "version": "1.2.2",
   "type": "module",
   "main": "dist/index.umd.cjs",
   "types": "dist/index.d.ts",

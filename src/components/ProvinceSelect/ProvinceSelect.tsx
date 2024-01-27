@@ -1,13 +1,12 @@
 import { PROVINCIAS } from "../../data";
 import { useStateContext } from "../context/ContextProvider";
-interface SelectComponentProps {
+
+const ProvinciasSelect = (props: {
   ContainerClassName?: string;
   LabelClassName?: string;
   SelectInputClassName?: string;
   LabelContent?: string;
-}
-
-const ProvinciasSelect = (props: SelectComponentProps) => {
+}) => {
   const methods = useStateContext();
   if (!methods) return <div>no context</div>;
 
