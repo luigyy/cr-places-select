@@ -107,6 +107,35 @@ function Example() {
   );
 }
 ```
+## Checking whether a place is in the GAM 
+to check if a place (province, municipality) is in the GAM use the LocationIsInGam function
+```tsx
+import {
+  LocationIsInGam,
+} from "react-select-costarica-location";
+
+function LocationForm() {
+
+  const { provincia, canton, distrito } = Location();
+  const [isGam, setIsGam] = useState(false);
+
+  useEffect(() => {
+    setIsGam(
+      LocationIsInGam({ province: provincia ?? "", municipality: canton ?? "" })
+    );
+  }, [provincia, canton]);
+
+  return (
+    <>
+      <ProvinceSelect/>
+      <MunicipalitySelect/>
+      <DistrictSelect/>
+      {isGam ? "Is Gam" : "Is not Gam"}
+    </>
+  );
+}
+```
+
 
 ## Contributing
 
