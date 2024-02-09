@@ -1,3 +1,17 @@
+export declare const GAM_PLACES: {
+    "San Jos\u00E9": {
+        cantones: string[];
+    };
+    Cartago: {
+        cantones: string[];
+    };
+    Heredia: {
+        cantones: string[];
+    };
+    Alajuela: {
+        cantones: string[];
+    };
+};
 export declare const PROVINCIAS: {
     "1": {
         nombre: string;
