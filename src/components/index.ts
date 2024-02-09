@@ -4,3 +4,5 @@ export { default as DistrictSelect } from "./DistrictSelect";
 export { ContextProvider } from "./context/ContextProvider";
 export { default as Location } from "./Location";
 export { default as LocationMethods } from "./Methods";
+
+export { default as LocationIsInGam } from "./LocationIsInGam";

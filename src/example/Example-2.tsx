@@ -1,13 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   ProvinceSelect,
   MunicipalitySelect,
   DistrictSelect,
   LocationMethods,
   Location,
+  LocationIsInGam,
 } from "..";
 import { ContextProvider } from "..";
 
+//
 const DEFAULT_PROVINCE = "Cartago";
 const DEFAULT_MUNICIPALITY = "Turrialba";
 const DEFAULT_DISTRICT = "Turrialba";
@@ -51,6 +53,12 @@ function LocationForm({ location }: { location: LocationType }) {
 
 function Example() {
   const { provincia, canton, distrito } = Location();
+  const [isGam, setIsGam] = useState(false);
+  useEffect(() => {
+    setIsGam(
+      LocationIsInGam({ province: provincia ?? "", municipality: canton ?? "" })
+    );
+  }, [provincia, canton]);
   return (
     <>
       <LocationForm
@@ -61,6 +69,7 @@ function Example() {
         }}
       />
       {provincia} {canton} {distrito}
+      <p>is Gam ? {isGam ? "gam" : "not gam"}</p>
     </>
   );
 }

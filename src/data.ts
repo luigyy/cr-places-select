@@ -927,4 +927,48 @@ const data = {
   },
 };
 
+export const GAM_PLACES = {
+  ["San José"]: {
+    cantones: [
+      "Central",
+      "Escazú",
+      "Desamparados",
+      "Aserrí",
+      "Mora",
+      "Goicoechea",
+      "Santa Ana",
+      "Alajuelita",
+      "Vázquez De Coronado",
+      "Tibás",
+      "Moravia",
+      "Montes De Oca",
+      "Curridabat",
+    ],
+  },
+  Cartago: {
+    cantones: [
+      "Central",
+      "Paraíso",
+      "La Unión",
+      "Oreamuno",
+      "Alvarado",
+      "El Guarco",
+    ],
+  },
+  Heredia: {
+    cantones: [
+      "Central",
+      "Barva",
+      "Santo Domingo",
+      "Santa Bárbara",
+      "San Rafael",
+      "San Isidro",
+      "Belén",
+      "Flores",
+      "San Pablo",
+    ],
+  },
+  Alajuela: { cantones: ["Central", "Atenas", "Poás"] },
+};
+
 export const PROVINCIAS = data.provincias;
